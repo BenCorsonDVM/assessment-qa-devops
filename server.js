@@ -18,6 +18,7 @@ var rollbar = new Rollbar({
 rollbar.log('Hello world!')
 
 app.get('/', (req, res) => {
+    //roll bar 1
     rollbar.info('Someone loaded up your HTML!')
     res.sendFile(path.join(__dirname, '/public/index.html'))
 })
@@ -32,9 +33,11 @@ app.get('/js', (req, res) => {
 
 app.get('/api/robots', (req, res) => {
     try {
+        //rollbar 2
         rollbar.info('Someone requested to get robots')
         res.status(200).send(botsArr)
     } catch (error) {
+        //rollbar 3
         rollbar.info('Someone had an error getting robots')
         console.log('ERROR GETTING BOTS', error)
         res.sendStatus(400)
@@ -43,12 +46,14 @@ app.get('/api/robots', (req, res) => {
 
 app.get('/api/robots/five', (req, res) => {
     try {
+        //rollbar 4
         rollbar.info('Someone loaded up all five robots')
         let shuffled = shuffleArray(bots)
         let choices = shuffled.slice(0, 5)
         let compDuo = shuffled.slice(6, 8)
         res.status(200).send({choices, compDuo})
     } catch (error) {
+        //rollbar 5
         rollbar.info('Someone had an error getting all five robots')
         console.log('ERROR GETTING FIVE BOTS', error)
         res.sendStatus(400)
